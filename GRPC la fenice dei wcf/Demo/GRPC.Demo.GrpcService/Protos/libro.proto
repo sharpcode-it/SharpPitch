@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option csharp_namespace = "GRPC.Demo.GrpcService";
+
+package libro;
+
+// The greeting service definition.
+service LibroService {
+  // Sends a greeting
+  rpc GetAll (Empty) returns (GetAllReply);
+  rpc GetAllStream (Empty) returns (stream LibroGrpc);
+  rpc GetById (RequestGetByid) returns (LibroGrpc);
+  rpc GetByIdAuth (RequestGetByid) returns (LibroGrpc);
+}
+
+message Empty{}
+
+message GetAllReply {
+	repeated LibroGrpc Items= 1;
+}
+
+message RequestGetByid {
+	string id = 1;
+}
+
+message LibroGrpc {
+	string id = 1;
+	string titolo =2;
+	ScrittoreGrpc Autore=3;
+}
+
+message ScrittoreGrpc {
+	string id = 1;
+	string Nome =2;
+	string Cognome=3;
+}
